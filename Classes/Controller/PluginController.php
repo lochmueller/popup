@@ -1,4 +1,7 @@
 <?php
+
+namespace FRUIT\Popup\Controller;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
@@ -26,7 +29,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class tx_popup_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
+class PluginController extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
 {
 
     /**

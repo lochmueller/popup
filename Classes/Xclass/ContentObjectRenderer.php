@@ -1,28 +1,17 @@
 <?php
+/**
+ * ContentObjectRenderer
+ */
 
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2009 Tim Lochmueller (tl@hdnet.de)
- *  All rights reserved
- *
- *  This script is part of the Typo3 project. The Typo3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-class ux_tslib_cObj extends tslib_cObj
+namespace FRUIT\Popup\Xclass;
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
+
+/**
+ * ContentObjectRenderer
+ */
+class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 {
 
 
@@ -54,14 +43,14 @@ class ux_tslib_cObj extends tslib_cObj
         $this->lastTypoLinkTarget = '';
         if ($link_param) {
             $enableLinksAcrossDomains = $GLOBALS['TSFE']->config['config']['typolinkEnableLinksAcrossDomains'];
-            $link_paramA = t3lib_div::unQuoteFilenames($link_param, true);
+            $link_paramA = GeneralUtility::unQuoteFilenames($link_param, true);
 
             // Check for link-handler keyword:
             list($linkHandlerKeyword, $linkHandlerValue) = explode(':', trim($link_paramA[0]), 2);
             if ($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typolinkLinkHandler'][$linkHandlerKeyword] && strcmp($linkHandlerValue,
                     '')
             ) {
-                $linkHandlerObj = t3lib_div::getUserObj($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typolinkLinkHandler'][$linkHandlerKeyword]);
+                $linkHandlerObj = GeneralUtility::getUserObj($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typolinkLinkHandler'][$linkHandlerKeyword]);
 
                 if (method_exists($linkHandlerObj, 'main')) {
                     return $linkHandlerObj->main($linktxt, $conf, $linkHandlerKeyword, $linkHandlerValue, $link_param,
@@ -85,7 +74,7 @@ class ux_tslib_cObj extends tslib_cObj
             $onClick = '';
             if ($forceTarget && preg_match('/^([0-9]+)x([0-9]+)(:(.*)|.*)$/', $forceTarget, $JSwindowParts)) {
                 // Take all pre-configured and inserted parameters and compile parameter list, including width+height:
-                $JSwindow_tempParamsArr = t3lib_div::trimExplode(',',
+                $JSwindow_tempParamsArr = GeneralUtility::trimExplode(',',
                     strtolower($conf['JSwindow_params'] . ',' . $JSwindowParts[4]), 1);
                 $JSwindow_paramsArr = [];
                 foreach ($JSwindow_tempParamsArr as $JSv) {
@@ -134,7 +123,7 @@ class ux_tslib_cObj extends tslib_cObj
                     list($rootFileDat) = explode('?', rawurldecode($link_param));
                     $containsSlash = strstr($rootFileDat, '/');
                     $rFD_fI = pathinfo($rootFileDat);
-                    if (trim($rootFileDat) && !$containsSlash && (@is_file(PATH_site . $rootFileDat) || t3lib_div::inList('php,html,htm',
+                    if (trim($rootFileDat) && !$containsSlash && (@is_file(PATH_site . $rootFileDat) || GeneralUtility::inList('php,html,htm',
                                 strtolower($rFD_fI['extension'])))
                     ) {
                         $isLocalFile = 1;
@@ -215,7 +204,7 @@ class ux_tslib_cObj extends tslib_cObj
                     }
                     // Splitting the parameter by ',' and if the array counts more than 1 element it's a id/type/? pair
                     unset($theTypeP);
-                    $pairParts = t3lib_div::trimExplode(',', $link_param);
+                    $pairParts = GeneralUtility::trimExplode(',', $link_param);
                     if (count($pairParts) > 1) {
                         $link_param = $pairParts[0];
                         $theTypeP = isset($pairParts[1]) ? $pairParts[1] : 0;        // Overruling 'type'
@@ -262,7 +251,7 @@ class ux_tslib_cObj extends tslib_cObj
                         // -----------------------
                         // Popup Hook
                         // -----------------------
-                        $popup = tslib_pibase::pi_getRecord('pages', $page['uid']);
+                        $popup = AbstractPlugin::pi_getRecord('pages', $page['uid']);
                         $popup_configuration = $popup['tx_popup_configuration'];
 
 
@@ -278,7 +267,7 @@ class ux_tslib_cObj extends tslib_cObj
                             $addQueryParams = '';
                         } elseif ($conf['useCacheHash']) {    // cache hashing:
                             // Added '.$this->linkVars' dec 2003: The need for adding the linkVars is that they will be included in the link, but not the cHash. Thus the linkVars will always be the problem that prevents the cHash from working. I cannot see what negative implications in terms of incompatibilities this could bring, but for now I hope there are none. So here we go... (- kasper);
-                            $addQueryParams .= '&cHash=' . t3lib_div::generateCHash($addQueryParams . $GLOBALS['TSFE']->linkVars);
+                            $addQueryParams .= '&cHash=' . GeneralUtility::generateCHash($addQueryParams . $GLOBALS['TSFE']->linkVars);
                         }
 
                         $tCR_domain = '';
@@ -436,7 +425,7 @@ class ux_tslib_cObj extends tslib_cObj
             if ($JSwindowParams) {
 
                 // Create TARGET-attribute only if the right doctype is used
-                if (!t3lib_div::inList('xhtml_strict,xhtml_11,xhtml_2', $GLOBALS['TSFE']->xhtmlDoctype)) {
+                if (!GeneralUtility::inList('xhtml_strict,xhtml_11,xhtml_2', $GLOBALS['TSFE']->xhtmlDoctype)) {
                     $target = ' target="FEopenLink"';
                 } else {
                     $target = '';
@@ -454,8 +443,7 @@ class ux_tslib_cObj extends tslib_cObj
                     // Popup Hook
                     // -----------------------
                     if (isset($popup_configuration) && strlen($popup_configuration)) {
-                        require_once(t3lib_extMgm::extPath('popup') . 'class.tx_popup.php');
-                        $popup = t3lib_div::makeInstance('tx_popup');
+                        $popup = GeneralUtility::makeInstance('FRUIT\\Popup\\Popup');
                         $popup_configuration = $popup->convertCfg2Js($popup_configuration);
                         $res = '<a href="' . htmlspecialchars($finalTagParts['url']) . '"' . ($title ? ' title="' . $title . '"' : '') . $finalTagParts['targetParams'] . ($linkClass ? ' class="' . $linkClass . '"' : '') . $finalTagParts['aTagParams'] . ' onclick="window.open(this.href,\'\',\'' . $popup_configuration . '\'); return false;">';
                     } else {
@@ -481,7 +469,7 @@ class ux_tslib_cObj extends tslib_cObj
                     'finalTagParts' => &$finalTagParts,
                 ];
                 foreach ($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typoLink_PostProc'] as $_funcRef) {
-                    t3lib_div::callUserFunction($_funcRef, $_params, $this);
+                    GeneralUtility::callUserFunction($_funcRef, $_params, $this);
                 }
             }
 
@@ -506,6 +494,5 @@ class ux_tslib_cObj extends tslib_cObj
             return $linktxt;
         }
     }
-
 
 }

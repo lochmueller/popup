@@ -3,10 +3,18 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$GLOBALS['TYPO3_CONF_VARS']['FE']['XCLASS']['tslib/class.tslib_menu.php'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('popup') . 'xclasses/class.ux_tslib_menu.php';
-$GLOBALS['TYPO3_CONF_VARS']['FE']['XCLASS']['tslib/class.tslib_content.php'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('popup') . 'xclasses/class.ux_tslib_cObj.php';
-$GLOBALS['TYPO3_CONF_VARS']['FE']['XCLASS']['media/scripts/gmenu_layers.php'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('popup') . 'xclasses/class.ux_tslib_gmenu_layers.php';
-$GLOBALS['TYPO3_CONF_VARS']['FE']['XCLASS']['media/scripts/gmenu_foldout.php'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('popup') . 'xclasses/class.ux_tslib_gmenu_foldout.php';
+$extendClasses = [
+    'TYPO3\\CMS\\Frontend\\ContentObject\\Menu\\GraphicalMenuContentObject' => 'FRUIT\\Popup\\Xclass\\GraphicalMenuContentObject',
+    'TYPO3\\CMS\\Frontend\\ContentObject\\Menu\\ImageMenuContentObject' => 'FRUIT\\Popup\\Xclass\\ImageMenuContentObject',
+    'TYPO3\\CMS\\Frontend\\ContentObject\\Menu\\JavaScriptMenuContentObject' => 'FRUIT\\Popup\\Xclass\\JavaScriptMenuContentObject',
+    'TYPO3\\CMS\\Frontend\\ContentObject\\Menu\\TextMenuContentObject' => 'FRUIT\\Popup\\Xclass\\TextMenuContentObject',
+    'TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer' => 'FRUIT\\Popup\\Xclass\\ContentObjectRenderer',
+];
+foreach ($extendClasses as $source => $target) {
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][$source] = [
+        'className' => $target,
+    ];
+}
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScript($_EXTKEY, 'setup', '
 	tt_content.text.20.parseFunc.tags.linkpop < tt_content.text.20.parseFunc.tags.link

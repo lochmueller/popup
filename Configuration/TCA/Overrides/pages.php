@@ -3,7 +3,7 @@
 $tempColumns = [
     'tx_popup_configuration' => [
         'exclude' => 1,
-        'label' => 'LLL:EXT:popup/locallang_db.xml:pages.tx_popup_configuration',
+        'label' => 'LLL:EXT:popup/Resources/Private/Language/locallang.xml:pages.tx_popup_configuration',
         'config' => [
             'type' => 'input',
             'size' => '15',
@@ -22,7 +22,7 @@ $tempColumns = [
     ],
     'tx_popup_auto' => [
         'exclude' => 1,
-        'label' => 'LLL:EXT:popup/locallang_db.php:pages.tx_popup_auto',
+        'label' => 'LLL:EXT:popup/Resources/Private/Language/locallang.php:pages.tx_popup_auto',
         'config' => [
             'type' => 'input',
             'size' => '35',
@@ -42,7 +42,7 @@ $tempColumns = [
     ],
     'tx_popup_auto_configuration' => [
         'exclude' => 1,
-        'label' => 'LLL:EXT:popup/locallang_db.php:pages.tx_popup_auto_configuration',
+        'label' => 'LLL:EXT:popup/Resources/Private/Language/locallang.xml:pages.tx_popup_auto_configuration',
         'config' => [
             'type' => 'input',
             'size' => '15',
