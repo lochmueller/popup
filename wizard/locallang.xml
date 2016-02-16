@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for popup module txpopup_wiz</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="title">Popup Wizard</label>
+            <label index="yes">yes</label>
+            <label index="no">no</label>
+            <label index="width">Width</label>
+            <label index="height">Height</label>
+            <label index="top">Top</label>
+            <label index="left">Left</label>
+            <label index="height">Height</label>
+            <label index="dependent">Dependent</label>
+            <label index="location">Location</label>
+            <label index="menubar">Menubar</label>
+            <label index="resizable">Resizable</label>
+            <label index="scrollbars">Scrollbars</label>
+            <label index="status">Status</label>
+            <label index="toolbar">Toolbar</label>
+            <label index="once_per_session">Once per Session</label>
+            <label index="once_per_link">Once per Link</label>
+            <label index="center">Center</label>
+            <label index="maximize">Maximize</label>
+            <label index="popunder">Popunder</label>
+            <label index="remove_popup">remove Popup</label>
+            <label index="set_popup">set Popup</label>
+            <label index="basic_configuration">Basic Configuration</label>
+            <label index="advanced_configuration">Advanced Configuration</label>
+            <label index="options">Options</label>
+        </languageKey>
+        <languageKey index="de" type="array">
+            <label index="title">Popup Assistent</label>
+            <label index="yes">ja</label>
+            <label index="no">nein</label>
+            <label index="width">Breite</label>
+            <label index="height">Höhe</label>
+            <label index="top">Top</label>
+            <label index="left">Left</label>
+            <label index="dependent">Abhängig</label>
+            <label index="location">Location</label>
+            <label index="menubar">Menüleiste</label>
+            <label index="resizable">Vergrößerbar</label>
+            <label index="scrollbars">Scrollbars</label>
+            <label index="status">Status</label>
+            <label index="toolbar">Toolleiste</label>
+            <label index="once_per_session">Einmal pro Session</label>
+            <label index="once_per_link">Einmal pro Link</label>
+            <label index="center">Zentriert</label>
+            <label index="maximize">Maximiert</label>
+            <label index="popunder">Popunder</label>
+            <label index="remove_popup">entferne Popup</label>
+            <label index="set_popup">setze Popup</label>
+            <label index="basic_configuration">Basis Konfiguration</label>
+            <label index="advanced_configuration">Erweiterte Konfiguration</label>
+            <label index="options">Optionen</label>
+        </languageKey>
+    </data>
+</T3locallang>

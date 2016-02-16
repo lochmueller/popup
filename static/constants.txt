@@ -1,0 +1,57 @@
+plugin.popup {
+
+
+	# cat=plugin.popup/enable/100; type=boolean; label=LLL:EXT:popup/locallang_db.xml:constants.resizable
+	resizable = 0
+	
+	# cat=plugin.popup/enable/110; type=boolean; label=LLL:EXT:popup/locallang_db.xml:constants.scrollbars
+	scrollbars = 0
+	
+	# cat=plugin.popup/enable/120; type=boolean; label=LLL:EXT:popup/locallang_db.xml:constants.menubar
+	menubar = 0
+	
+	# cat=plugin.popup/enable/130; type=boolean; label=LLL:EXT:popup/locallang_db.xml:constants.status
+	status = 0
+	
+	# cat=plugin.popup/enable/140; type=boolean; label=LLL:EXT:popup/locallang_db.xml:constants.location
+	location = 0
+	
+	# cat=plugin.popup/enable/150; type=boolean; label=LLL:EXT:popup/locallang_db.xml:constants.toolbar
+	toolbar = 0
+	
+	# cat=plugin.popup/enable/160; type=boolean; label=LLL:EXT:popup/locallang_db.xml:constants.dependent
+	dependent = 0
+	
+	
+		
+	# cat=plugin.popup/dims/200; type=int+; label=LLL:EXT:popup/locallang_db.xml:constants.height
+	height = 200
+	
+	# cat=plugin.popup/dims/210; type=int+; label=LLL:EXT:popup/locallang_db.xml:constants.width
+	width = 300
+	
+	# cat=plugin.popup/dims/220; type=int+; label=LLL:EXT:popup/locallang_db.xml:constants.top
+	top = 0
+	
+	# cat=plugin.popup/dims/230; type=int+; label=LLL:EXT:popup/locallang_db.xml:constants.left
+	left = 0
+	
+	
+	
+	# cat=plugin.popup//300; type=boolean; label=LLL:EXT:popup/locallang_db.xml:constants.center
+	center = 0
+	
+	# cat=plugin.popup//310; type=boolean; label=LLL:EXT:popup/locallang_db.xml:constants.maximize
+	maximize = 0
+	
+	# cat=plugin.popup//320; type=boolean; label=LLL:EXT:popup/locallang_db.xml:constants.once_per_session
+	once_per_session = 1
+	
+	# cat=plugin.popup//330; type=boolean; label=LLL:EXT:popup/locallang_db.xml:constants.once_per_link
+	once_per_link = 1
+	
+	# cat=plugin.popup//340; type=boolean; label=LLL:EXT:popup/locallang_db.xml:constants.popunder
+	popunder = 0
+	
+
+}
