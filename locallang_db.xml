@@ -1,71 +1,100 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <T3locallang>
-	<meta type="array">
-		<description></description>
-		<type></type>
-		<csh_table></csh_table>
-		<labelContext type="array"></labelContext>
-	</meta>
-	<data type="array">
-		<languageKey index="default" type="array">
-			<label index="pages.tx_popup_configuration">Popup configuration:</label>
-			<label index="tx_popup_configuration.description">Use the popup configuration to open this page in a popup. All links to this page will automaticlly converted in JavaScript popup links.</label>
-			<label index="pages.tx_popup_auto">Automatic Popup:</label>
-			<label index="tx_popup_auto.description">If set, a popup will be open if someone browse to the current page.</label>
-			<label index="pages.tx_popup_auto_configuration">Automatic Popup - overwrite configuration:</label>
-			<label index="tx_popup_auto_configuration.description">The configuration for the auto popup. More Advanced and same gimmicks to call popups. If not set, the default config will be used.</label>
-			<label index="constants.resizable">Window is resizable</label>
-			<label index="constants.scrollbars">Window has scrollbars</label>
-			<label index="constants.menubar">Window has a menu bar</label>
-			<label index="constants.status">Window has a status bar</label>
-			<label index="constants.location">Window has a location field</label>
-			<label index="constants.toolbar">Window has a toolbar</label>
-			<label index="constants.dependent">Window is dependent: A dependent window will be closed, when its parent is closed (only for Netscape 4.0 and higher).</label>
-			<label index="constants.height">Window height</label>
-			<label index="constants.width">Window width</label>
-			<label index="constants.top">Window position top (y-axis) - 0 means not used</label>
-			<label index="constants.left">Window position left (x-axis) - 0 means not used</label>
-			<label index="constants.center">Auto Window is centered: Overrides window position</label>
-			<label index="constants.maximize">Auto window maximize size: Makes window full-screen (overrides window position and size).</label>
-			<label index="constants.once_per_session">Auto Pop-up opened once per session</label>
-			<label index="constants.once_per_link">Auto Pop-up opened once per link url: Decides whether the pop-up is shown once on a per link url basis or once per page of the plug-in.</label>
-			<label index="constants.popunder">Auto Window is a pop-under: Makes window appear below current window.</label>	
-		</languageKey>
-		<languageKey index="de" type="array">
-			<label index="pages.tx_popup_configuration">Popup Konfiguration:</label>
-			<label index="tx_popup_configuration.description">Benutze die Popup Konfiguration um diese Seite im Popup zu öffnen. Alle Links zu dieser Seite werden automatisch in ein JavaScript Popup konvertiert.</label>
-			<label index="pages.tx_popup_auto">Automatisches Popup:</label>
-			<label index="tx_popup_auto.description">Wenn gesetzt, dann wird ein Popup geöffnet sobald die aktuelle Seite aufgerufen wird.</label>
-			<label index="pages.tx_popup_auto_configuration">Automatisches Popup - überschreibende Konfiguration:</label>
-			<label index="tx_popup_auto_configuration.description">Die Konfiguration für automatische Popups. Erweiterte um einige nütliche Funktionen um Popups aufzurufen. Wenn nicht gesetzt, dann wird die Standard Konfiguration benutzt.</label>
-			<label index="constants.resizable">Fester ist in der größe veränderbar</label>
-			<label index="constants.scrollbars">Fenster hat Scrollbalken</label>
-			<label index="constants.menubar">Fenster hat eine Menu Leiste</label>
-			<label index="constants.status">Fenster hat eine Status Leiste</label>
-			<label index="constants.location">Fenster hat ein "Location" Feld</label>
-			<label index="constants.toolbar">Fenster hat eine Toolbar</label>
-			<label index="constants.dependent">Fenster ist abhängig: Ein abhängiges Fenster wird geschlossen, wenn das Mutter-Fenster geschlossen wird (nur für Netscape 4.0 und höher).</label>
-			<label index="constants.height">Fensterhöhe</label>
-			<label index="constants.width">Fensterbreite</label>
-			<label index="constants.top">Fenster Position oben (y-Achse) - 0 wird ignoriert</label>
-			<label index="constants.left">Fenster Position links (x-Achse) - 0 wird ignoriert</label>
-			<label index="constants.center">Auto Popup zentriert: Überschreibt die Optionen "top" und "left"</label>
-			<label index="constants.maximize">Auto Poup maximieren: Öffnet des Fenster im Fullscreen (Überschreibt die Optionen "height" und "width").</label>
-			<label index="constants.once_per_session">Auto Popup einmalig pro Session öffnen</label>
-			<label index="constants.once_per_link">Auto Pop-up einmal pro URL öffnen: Decides whether the pop-up is shown once on a per link url basis or once per page of the plug-in.</label>
-			<label index="constants.popunder">Auto Popup "Popunder": Öffnet das Popup im Hintergrund der aktuellen Seite.</label>	
-		</languageKey>
-			<languageKey index="it" type="array">
-			<label index="pages.tx_popup_configuration">Configurazione Popup:</label>
-		</languageKey>
-		<languageKey index="it" type="array">
-			<label index="pages.tx_popup_configuration">Popup asetukset:</label>
-		</languageKey>
-		<languageKey index="hu" type="array">
-			<label index="pages.tx_popup_configuration">Popup beállítás:</label>
-		</languageKey>
-		<languageKey index="br" type="array">
-			<label index="pages.tx_popup_configuration">Configuração do Popup:</label>
-		</languageKey>
-	</data>
+    <meta type="array">
+        <description></description>
+        <type></type>
+        <csh_table></csh_table>
+        <labelContext type="array"></labelContext>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="pages.tx_popup_configuration">Popup configuration:</label>
+            <label index="tx_popup_configuration.description">Use the popup configuration to open this page in a popup.
+                All links to this page will automaticlly converted in JavaScript popup links.
+            </label>
+            <label index="pages.tx_popup_auto">Automatic Popup:</label>
+            <label index="tx_popup_auto.description">If set, a popup will be open if someone browse to the current
+                page.
+            </label>
+            <label index="pages.tx_popup_auto_configuration">Automatic Popup - overwrite configuration:</label>
+            <label index="tx_popup_auto_configuration.description">The configuration for the auto popup. More Advanced
+                and same gimmicks to call popups. If not set, the default config will be used.
+            </label>
+            <label index="constants.resizable">Window is resizable</label>
+            <label index="constants.scrollbars">Window has scrollbars</label>
+            <label index="constants.menubar">Window has a menu bar</label>
+            <label index="constants.status">Window has a status bar</label>
+            <label index="constants.location">Window has a location field</label>
+            <label index="constants.toolbar">Window has a toolbar</label>
+            <label index="constants.dependent">Window is dependent: A dependent window will be closed, when its parent
+                is closed (only for Netscape 4.0 and higher).
+            </label>
+            <label index="constants.height">Window height</label>
+            <label index="constants.width">Window width</label>
+            <label index="constants.top">Window position top (y-axis) - 0 means not used</label>
+            <label index="constants.left">Window position left (x-axis) - 0 means not used</label>
+            <label index="constants.center">Auto Window is centered: Overrides window position</label>
+            <label index="constants.maximize">Auto window maximize size: Makes window full-screen (overrides window
+                position and size).
+            </label>
+            <label index="constants.once_per_session">Auto Pop-up opened once per session</label>
+            <label index="constants.once_per_link">Auto Pop-up opened once per link url: Decides whether the pop-up is
+                shown once on a per link url basis or once per page of the plug-in.
+            </label>
+            <label index="constants.popunder">Auto Window is a pop-under: Makes window appear below current window.
+            </label>
+        </languageKey>
+        <languageKey index="de" type="array">
+            <label index="pages.tx_popup_configuration">Popup Konfiguration:</label>
+            <label index="tx_popup_configuration.description">Benutze die Popup Konfiguration um diese Seite im Popup zu
+                öffnen. Alle Links zu dieser Seite werden automatisch in ein JavaScript Popup konvertiert.
+            </label>
+            <label index="pages.tx_popup_auto">Automatisches Popup:</label>
+            <label index="tx_popup_auto.description">Wenn gesetzt, dann wird ein Popup geöffnet sobald die aktuelle
+                Seite aufgerufen wird.
+            </label>
+            <label index="pages.tx_popup_auto_configuration">Automatisches Popup - überschreibende Konfiguration:
+            </label>
+            <label index="tx_popup_auto_configuration.description">Die Konfiguration für automatische Popups. Erweiterte
+                um einige nütliche Funktionen um Popups aufzurufen. Wenn nicht gesetzt, dann wird die Standard
+                Konfiguration benutzt.
+            </label>
+            <label index="constants.resizable">Fester ist in der größe veränderbar</label>
+            <label index="constants.scrollbars">Fenster hat Scrollbalken</label>
+            <label index="constants.menubar">Fenster hat eine Menu Leiste</label>
+            <label index="constants.status">Fenster hat eine Status Leiste</label>
+            <label index="constants.location">Fenster hat ein "Location" Feld</label>
+            <label index="constants.toolbar">Fenster hat eine Toolbar</label>
+            <label index="constants.dependent">Fenster ist abhängig: Ein abhängiges Fenster wird geschlossen, wenn das
+                Mutter-Fenster geschlossen wird (nur für Netscape 4.0 und höher).
+            </label>
+            <label index="constants.height">Fensterhöhe</label>
+            <label index="constants.width">Fensterbreite</label>
+            <label index="constants.top">Fenster Position oben (y-Achse) - 0 wird ignoriert</label>
+            <label index="constants.left">Fenster Position links (x-Achse) - 0 wird ignoriert</label>
+            <label index="constants.center">Auto Popup zentriert: Überschreibt die Optionen "top" und "left"</label>
+            <label index="constants.maximize">Auto Poup maximieren: Öffnet des Fenster im Fullscreen (Überschreibt die
+                Optionen "height" und "width").
+            </label>
+            <label index="constants.once_per_session">Auto Popup einmalig pro Session öffnen</label>
+            <label index="constants.once_per_link">Auto Pop-up einmal pro URL öffnen: Decides whether the pop-up is
+                shown once on a per link url basis or once per page of the plug-in.
+            </label>
+            <label index="constants.popunder">Auto Popup "Popunder": Öffnet das Popup im Hintergrund der aktuellen
+                Seite.
+            </label>
+        </languageKey>
+        <languageKey index="it" type="array">
+            <label index="pages.tx_popup_configuration">Configurazione Popup:</label>
+        </languageKey>
+        <languageKey index="it" type="array">
+            <label index="pages.tx_popup_configuration">Popup asetukset:</label>
+        </languageKey>
+        <languageKey index="hu" type="array">
+            <label index="pages.tx_popup_configuration">Popup beállítás:</label>
+        </languageKey>
+        <languageKey index="br" type="array">
+            <label index="pages.tx_popup_configuration">Configuração do Popup:</label>
+        </languageKey>
+    </data>
 </T3locallang>

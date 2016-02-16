@@ -2,29 +2,28 @@
 # SETUP - Global configuration
 ###
 plugin.tx_popup_pi1 {
-	
-	allowedParams {
-		height = {$plugin.popup.height}
-		width = {$plugin.popup.width}
-		top = {$plugin.popup.top}
-		left = {$plugin.popup.left}
-		resizable = {$plugin.popup.resizable}
-		scrollbars = {$plugin.popup.scrollbars}
-		menubar = {$plugin.popup.menubar}
-		status = {$plugin.popup.status}
-		location = {$plugin.popup.location}
-		toolbar = {$plugin.popup.toolbar}
-		dependent = {$plugin.popup.dependent}
-	}
-	advancedParams {
-		center = {$plugin.popup.center}
-		maximize = {$plugin.popup.maximize}
-		popunder = {$plugin.popup.popunder}
-		once_per_session = {$plugin.popup.once_per_session}
-		once_per_link = {$plugin.popup.once_per_link}
-	}
-}
+    allowedParams {
+        height = {$plugin.popup.height}
+        width = {$plugin.popup.width}
+        top = {$plugin.popup.top}
+        left = {$plugin.popup.left}
+        resizable = {$plugin.popup.resizable}
+        scrollbars = {$plugin.popup.scrollbars}
+        menubar = {$plugin.popup.menubar}
+        status = {$plugin.popup.status}
+        location = {$plugin.popup.location}
+        toolbar = {$plugin.popup.toolbar}
+        dependent = {$plugin.popup.dependent}
+    }
 
+    advancedParams {
+        center = {$plugin.popup.center}
+        maximize = {$plugin.popup.maximize}
+        popunder = {$plugin.popup.popunder}
+        once_per_session = {$plugin.popup.once_per_session}
+        once_per_link = {$plugin.popup.once_per_link}
+    }
+}
 
 ###
 # SETUP - TypoScript Popup link feature
@@ -35,4 +34,4 @@ config.setJS_openPic = 1
 ###
 # SETUP - Auto popup link feature
 ###
-page.headerData.1063 = < plugin.tx_popup_pi1
+page.headerData.1063 =< plugin.tx_popup_pi1
