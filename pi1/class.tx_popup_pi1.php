@@ -1,4 +1,6 @@
 <?php
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -24,10 +26,7 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-require_once(PATH_tslib . 'class.tslib_pibase.php');
-
-class tx_popup_pi1 extends tslib_pibase
+class tx_popup_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
 {
 
     /**
@@ -55,8 +54,7 @@ class tx_popup_pi1 extends tslib_pibase
      */
     private function init()
     {
-        require_once(t3lib_extMgm::extPath('popup') . '/class.tx_popup.php');
-        $this->popup = t3lib_div::makeInstance('tx_popup');
+        $this->popup = GeneralUtility::makeInstance('FRUIT\\Popup\\Popup');
         $this->allowedParams = $this->popup->allowedParams;
         $this->customParams = $this->popup->advancedParams;
     } # function - init
@@ -78,7 +76,7 @@ class tx_popup_pi1 extends tslib_pibase
 
         $link = $this->cObj->data['tx_popup_auto'];
         if (!$link) {
-            t3lib_div::devLog('No link defined', $this->extKey);
+            GeneralUtility::devLog('No link defined', $this->extKey);
             return '';
         }
 
@@ -87,14 +85,14 @@ class tx_popup_pi1 extends tslib_pibase
             $popups = $GLOBALS['TSFE']->fe_user->getKey('ses', $this->prefixId);
             if ($conf['advancedParams.']['once_per_link']) {
                 if ($popups['links'][$link]) {
-                    t3lib_div::devLog('Pop-up link "' . $link . '" already shown.', $this->extKey);
+                    GeneralUtility::devLog('Pop-up link "' . $link . '" already shown.', $this->extKey);
                     return '';
                 } else {
                     $popups['links'][$link] = 1;
                 }
             } else {
                 if ($popups['pages'][$GLOBALS['TSFE']->id]) { // we have been on the current page
-                    t3lib_div::devLog('Pop-up already shown on this page.', $this->extKey);
+                    GeneralUtility::devLog('Pop-up already shown on this page.', $this->extKey);
                     return '';
                 } else {
                     $popups['pages'][$GLOBALS['TSFE']->id] = 1;
@@ -106,7 +104,7 @@ class tx_popup_pi1 extends tslib_pibase
         // create the url
         $url = $this->cObj->getTypoLink_URL($link);
         if (!$url) {
-            t3lib_div::devLog('No valid pop-up (e.g. a hidden page):' . $link, $this->extKey);
+            GeneralUtility::devLog('No valid pop-up (e.g. a hidden page):' . $link, $this->extKey);
             return '';
         }
 

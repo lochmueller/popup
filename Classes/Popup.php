@@ -24,7 +24,10 @@
 
 namespace FRUIT\Popup;
 
+use TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * base class for the popup extension
@@ -38,6 +41,8 @@ class Popup
 
     /**
      * cObj for the RTE replacement
+     *
+     * @var ContentObjectRenderer
      */
     public $cObj;
 
@@ -82,7 +87,7 @@ class Popup
      */
     public static function makeMenuLink($pageOrPageID, &$LD)
     {
-        $popup = t3lib_div::makeInstance('tx_popup');
+        $popup = GeneralUtility::makeInstance('FRUIT\\Popup\\Popup');
         if ($target = $popup->getPopupTarget($pageOrPageID)) {
             $LD['target'] = $target;
         }
@@ -225,7 +230,7 @@ class Popup
         while (list($key, $val) = each($arr1)) {
             if (is_array($arr0[$key])) {
                 if (is_array($arr1[$key])) {
-                    $arr0[$key] = t3lib_div::array_merge_recursive_overrule($arr0[$key], $arr1[$key], $notAddKeys);
+                    ArrayUtility::mergeRecursiveWithOverrule($arr0[$key], $arr1[$key], $notAddKeys);
                 }
             } else {
                 if ($notAddKeys) {
@@ -248,13 +253,9 @@ class Popup
      */
     function loadTypoScript($pid, $pluginExtKey = 'tx_popup_pi1')
     {
-        require_once(PATH_t3lib . 'class.t3lib_page.php');
-        require_once(PATH_t3lib . 'class.t3lib_tstemplate.php');
-        require_once(PATH_t3lib . 'class.t3lib_tsparser_ext.php');
-
-        $sysPageObj = t3lib_div::makeInstance('t3lib_pageSelect');
+        $sysPageObj = GeneralUtility::makeInstance('t3lib_pageSelect');
         $rootLine = $sysPageObj->getRootLine($pid);
-        $TSObj = t3lib_div::makeInstance('t3lib_tsparser_ext');
+        $TSObj = GeneralUtility::makeInstance('t3lib_tsparser_ext');
         $TSObj->tt_track = 0;
         $TSObj->init();
         $TSObj->runThroughTemplates($rootLine);
@@ -436,9 +437,4 @@ class Popup
     } # function - setAllFields
 
 
-} # class - tx_popup
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/popup/class.tx_popup.php']) {
-    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/popup/class.tx_popup.php']);
-} # if
-?>
+}

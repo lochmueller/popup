@@ -23,13 +23,12 @@
  ***************************************************************/
 
 // DEFAULT initialization of a module [BEGIN]
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 unset($MCONF);
 require_once('conf.php');
 require_once($BACK_PATH . '../typo3/init.php');
-require_once($BACK_PATH . 'template.php');
 $LANG->includeLLFile('EXT:popup/wizard/locallang.xml');
-require_once(PATH_t3lib . 'class.t3lib_scbase.php');
-require_once(t3lib_extMgm::extPath('popup') . 'class.tx_popup.php');
 // DEFAULT initialization of a module [END]
 
 
@@ -40,7 +39,7 @@ require_once(t3lib_extMgm::extPath('popup') . 'class.tx_popup.php');
  * @package    TYPO3
  * @subpackage    tx_popup
  */
-class tx_popup_wiz extends t3lib_SCbase
+class tx_popup_wiz extends \TYPO3\CMS\Backend\Module\BaseScriptClass
 {
 
 
@@ -53,10 +52,10 @@ class tx_popup_wiz extends t3lib_SCbase
         global $BE_USER, $LANG, $BACK_PATH;
 
         // popup Object
-        $this->popup = t3lib_div::makeInstance('tx_popup');
+        $this->popup = GeneralUtility::makeInstance('FRUIT\\Popup\\Popup');
 
         // Draw the header.
-        $this->doc = t3lib_div::makeInstance('smallDoc');
+        $this->doc = GeneralUtility::makeInstance('smallDoc');
         $this->doc->backPath = $BACK_PATH;
         $this->doc->form = '<form action="" method="post" name="wiz_form" style="margin: 5px;">';
 
@@ -141,7 +140,7 @@ class tx_popup_wiz extends t3lib_SCbase
 			</script>';
 
 
-        $this->pageinfo = t3lib_BEfunc::readPageAccess($this->id, $this->perms_clause);
+        $this->pageinfo = \TYPO3\CMS\Backend\Utility\BackendUtility::readPageAccess($this->id, $this->perms_clause);
         $access = is_array($this->pageinfo) ? 1 : 0;
         if (($this->id && $access) || ($BE_USER->user['admin'] && !$this->id)) {
             if ($BE_USER->user['admin'] && !$this->id) {
@@ -232,8 +231,7 @@ class tx_popup_wiz extends t3lib_SCbase
 
 
 // Make instance:
-$SOBE = t3lib_div::makeInstance('tx_popup_wiz');
+$SOBE = GeneralUtility::makeInstance('tx_popup_wiz');
 $SOBE->init();
 $SOBE->main();
 $SOBE->printContent();
-?>
