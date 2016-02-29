@@ -1,60 +1,61 @@
 <?php
 
 $tempColumns = [
-    'tx_popup_configuration' => [
+    'tx_popup_configuration'      => [
         'exclude' => 1,
-        'label' => 'LLL:EXT:popup/Resources/Private/Language/locallang.xml:pages.tx_popup_configuration',
-        'config' => [
-            'type' => 'input',
-            'size' => '15',
-            'checkbox' => '',
+        'label'   => 'LLL:EXT:popup/Resources/Private/Language/locallang.xml:pages.tx_popup_configuration',
+        'config'  => [
+            'type'    => 'input',
             'wizards' => [
-                '_PADDING' => 5,
                 'link' => [
-                    'type' => 'popup',
-                    'title' => 'Popup Wizard:',
-                    'icon' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('popup') . 'ext_icon.png',
+                    'type'         => 'popup',
+                    'title'        => 'Popup Wizard',
+                    'icon'         => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('popup') . 'ext_icon.png',
                     'JSopenParams' => 'height=460,width=240,status=0,menubar=0,scrollbars=0',
-                    'script' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('popup') . 'wizard/index.php'
+                    'module'       => array(
+                        'name' => 'wizard_popup',
+                    ),
                 ],
             ],
         ],
     ],
-    'tx_popup_auto' => [
+    'tx_popup_auto'               => [
         'exclude' => 1,
-        'label' => 'LLL:EXT:popup/Resources/Private/Language/locallang.php:pages.tx_popup_auto',
-        'config' => [
-            'type' => 'input',
-            'size' => '35',
+        'label'   => 'LLL:EXT:popup/Resources/Private/Language/locallang.php:pages.tx_popup_auto',
+        'config'  => [
+            'type'     => 'input',
+            'size'     => '35',
             'checkbox' => '',
-            'eval' => 'trim',
-            'wizards' => [
-                '_PADDING' => 2,
+            'eval'     => 'trim',
+            'wizards'  => [
                 'link' => [
-                    'type' => 'popup',
-                    'title' => 'Link',
-                    'icon' => 'link_popup.gif',
-                    'script' => 'browse_links.php?mode=wizard',
-                    'JSopenParams' => 'height=340,width=500,status=0,menubar=0,scrollbars=1'
+                    'type'         => 'popup',
+                    'title'        => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_link_formlabel',
+                    'icon'         => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_link.gif',
+                    'module'       => [
+                        'name' => 'wizard_link'
+                    ],
+                    'JSopenParams' => 'width=800,height=600,status=0,menubar=0,scrollbars=1'
                 ],
             ],
         ],
     ],
     'tx_popup_auto_configuration' => [
         'exclude' => 1,
-        'label' => 'LLL:EXT:popup/Resources/Private/Language/locallang.xml:pages.tx_popup_auto_configuration',
-        'config' => [
-            'type' => 'input',
-            'size' => '15',
-            'checkbox' => '',
+        'label'   => 'LLL:EXT:popup/Resources/Private/Language/locallang.xml:pages.tx_popup_auto_configuration',
+        'config'  => [
+            'type'    => 'input',
             'wizards' => [
-                '_PADDING' => 5,
                 'link' => [
-                    'type' => 'popup',
-                    'title' => 'Popup Wizard:',
-                    'icon' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('popup') . 'ext_icon.png',
+                    'type'         => 'popup',
+                    'title'        => 'Popup Wizard',
+                    'icon'         => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('popup') . 'ext_icon.png',
                     'JSopenParams' => 'height=640,width=240,status=0,menubar=0,scrollbars=0',
-                    'script' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('popup') . 'wizard/index.php?advanced=1'
+                    'module'       => array(
+                        'name' => 'wizard_popup',
+                    ),
+                    // advanced=1
+                    #'script' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('popup') . 'wizard/index.php?advanced=1'
                 ],
             ],
         ],
