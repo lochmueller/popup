@@ -28,6 +28,7 @@ use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * base class for the popup extension
@@ -253,9 +254,10 @@ class Popup
      */
     function loadTypoScript($pid, $pluginExtKey = 'tx_popup_pi1')
     {
-        $sysPageObj = GeneralUtility::makeInstance('t3lib_pageSelect');
+
+        $sysPageObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Page\\PageRepository');
         $rootLine = $sysPageObj->getRootLine($pid);
-        $TSObj = GeneralUtility::makeInstance('t3lib_tsparser_ext');
+        $TSObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\TypoScript\\ExtendedTemplateService');
         $TSObj->tt_track = 0;
         $TSObj->init();
         $TSObj->runThroughTemplates($rootLine);
