@@ -55,18 +55,20 @@ class tx_popup_wiz extends \TYPO3\CMS\Backend\Module\BaseScriptClass
         $this->doc->JScode = '
 			<script language="javascript" type="text/javascript">
 				function setElementValue(elName,elValue) {
-					if (parent.window.opener && parent.window.opener.setFormValueFromBrowseWin)	{
+					if (parent.opener && parent.opener.setFormValueFromBrowseWin)	{
 						var checkbox = true;
 						if(elValue == "") checkbox = false;
-						parent.window.opener.document.forms["editform"].elements["data[pages][' . $_GET['P']['uid'] . ']["+elName+"]_hr"].value = elValue;
-						parent.window.opener.document.forms["editform"].elements["data[pages][' . $_GET['P']['uid'] . ']["+elName+"]_cb"].checked = checkbox;
-						parent.window.opener.document.forms["editform"].elements["data[pages][' . $_GET['P']['uid'] . ']["+elName+"]"].value = elValue;
+
+						var selector = \'[data-formengine-input-name="\'+elName+\'"]\';
+                        parent.opener.TYPO3.jQuery(selector).value = elValue;
+                        parent.opener.TBE_EDITOR.fieldChanged("pages",' . $_GET['P']['uid'] . ',elName,"data[pages][' . $_GET['P']['uid'] . ']["+elName+"]");
+
 						// setFormValueFromBrowseWin??
-						parent.window.opener.focus();
+						parent.opener.focus();
 						parent.close();
 					} else {
 						alert("Error - reference to main window is not set properly!");
-						parent.window.opener.focus();
+						parent.opener.focus();
 						parent.close();
 					}
 					return false;

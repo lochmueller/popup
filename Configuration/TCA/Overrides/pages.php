@@ -11,7 +11,7 @@ $tempColumns = [
                     'type'         => 'popup',
                     'title'        => 'Popup Wizard',
                     'icon'         => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('popup') . 'ext_icon.png',
-                    'JSopenParams' => 'height=460,width=240,status=0,menubar=0,scrollbars=0',
+                    'JSopenParams' => 'height=560,width=240,status=0,menubar=0,scrollbars=0',
                     'module'       => array(
                         'name' => 'wizard_popup',
                     ),
@@ -33,7 +33,7 @@ $tempColumns = [
                     'title'        => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_link_formlabel',
                     'icon'         => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_link.gif',
                     'module'       => [
-                        'name' => 'wizard_link'
+                        'name' => 'wizard_link',
                     ],
                     'JSopenParams' => 'width=800,height=600,status=0,menubar=0,scrollbars=1'
                 ],
@@ -50,12 +50,13 @@ $tempColumns = [
                     'type'         => 'popup',
                     'title'        => 'Popup Wizard',
                     'icon'         => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('popup') . 'ext_icon.png',
-                    'JSopenParams' => 'height=640,width=240,status=0,menubar=0,scrollbars=0',
+                    'JSopenParams' => 'height=740,width=240,status=0,menubar=0,scrollbars=0',
                     'module'       => array(
-                        'name' => 'wizard_popup',
+                        'name'          => 'wizard_popup',
+                        'urlParameters' => [
+                            'advanced' => 1,
+                        ],
                     ),
-                    // advanced=1
-                    #'script' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('popup') . 'wizard/index.php?advanced=1'
                 ],
             ],
         ],
