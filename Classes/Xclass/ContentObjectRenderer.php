@@ -41,8 +41,10 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
         $LD = array();
         $finalTagParts = array();
         $finalTagParts['aTagParams'] = $this->getATagParams($conf);
-        $linkParameter = trim(isset($conf['parameter.']) ? $this->stdWrap($conf['parameter'],
-            $conf['parameter.']) : $conf['parameter']);
+        $linkParameter = trim(isset($conf['parameter.']) ? $this->stdWrap(
+            $conf['parameter'],
+            $conf['parameter.']
+        ) : $conf['parameter']);
         $this->lastTypoLinkUrl = '';
         $this->lastTypoLinkTarget = '';
 
@@ -66,8 +68,11 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
         $JSwindowParams = '';
         if ($forceTarget && preg_match('/^([0-9]+)x([0-9]+)(:(.*)|.*)$/', $forceTarget, $JSwindowParts)) {
             // Take all pre-configured and inserted parameters and compile parameter list, including width+height:
-            $JSwindow_tempParamsArr = GeneralUtility::trimExplode(',',
-                strtolower($conf['JSwindow_params'] . ',' . $JSwindowParts[4]), true);
+            $JSwindow_tempParamsArr = GeneralUtility::trimExplode(
+                ',',
+                strtolower($conf['JSwindow_params'] . ',' . $JSwindowParts[4]),
+                true
+            );
             $JSwindow_paramsArr = array();
             foreach ($JSwindow_tempParamsArr as $JSv) {
                 list($JSp, $JSv) = explode('=', $JSv, 2);
@@ -133,8 +138,11 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                     $scheme = '';
                 }
 
-                $this->lastTypoLinkUrl = $this->processUrl(UrlProcessorInterface::CONTEXT_EXTERNAL, $scheme . $linkParameter,
-                    $conf);
+                $this->lastTypoLinkUrl = $this->processUrl(
+                    UrlProcessorInterface::CONTEXT_EXTERNAL,
+                    $scheme . $linkParameter,
+                    $conf
+                );
 
                 $this->lastTypoLinkTarget = $target;
                 $finalTagParts['url'] = $this->lastTypoLinkUrl;
@@ -144,7 +152,6 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
 
             // file (internal)
             case 'file':
-
                 $splitLinkParam = explode('?', $linkParameter);
 
                 // check if the file exists or if a / is contained (same check as in detectLinkType)
@@ -152,8 +159,11 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                     if ($linktxt === '') {
                         $linktxt = $this->parseFunc(rawurldecode($linkParameter), array('makelinks' => 0), '< lib.parseFunc');
                     }
-                    $this->lastTypoLinkUrl = $this->processUrl(UrlProcessorInterface::CONTEXT_FILE,
-                        $GLOBALS['TSFE']->absRefPrefix . $linkParameter, $conf);
+                    $this->lastTypoLinkUrl = $this->processUrl(
+                        UrlProcessorInterface::CONTEXT_FILE,
+                        $GLOBALS['TSFE']->absRefPrefix . $linkParameter,
+                        $conf
+                    );
                     $this->lastTypoLinkUrl = $this->forceAbsoluteUrl($this->lastTypoLinkUrl, $conf);
                     $target = isset($conf['fileTarget']) ? $conf['fileTarget'] : $tsfe->fileTarget;
                     if ($conf['fileTarget.']) {
@@ -168,8 +178,10 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                     $finalTagParts['aTagParams'] .= $this->extLinkATagParams($finalTagParts['url'], $linkType);
                 } else {
                     $this->getTimeTracker()
-                        ->setTSlogMessage('typolink(): File "' . $splitLinkParam[0] . '" did not exist, so "' . $linktxt . '" was not linked.',
-                            1);
+                        ->setTSlogMessage(
+                            'typolink(): File "' . $splitLinkParam[0] . '" did not exist, so "' . $linktxt . '" was not linked.',
+                            1
+                        );
                     return $linktxt;
                 }
                 break;
@@ -193,8 +205,10 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                     $linkParameter = $tsfe->id;
                 }
 
-                $sectionMark = trim(isset($conf['section.']) ? $this->stdWrap($conf['section'],
-                    $conf['section.']) : $conf['section']);
+                $sectionMark = trim(isset($conf['section.']) ? $this->stdWrap(
+                    $conf['section'],
+                    $conf['section.']
+                ) : $conf['section']);
                 if ($sectionMark !== '') {
                     $sectionMark = '#' . (MathUtility::canBeInterpretedAsInteger($sectionMark) ? 'c' : '') . $sectionMark;
                 }
@@ -235,8 +249,10 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                         $page = $tsfe->sys_page->getPage($mount_info['mount_pid'], $disableGroupAccessCheck);
                         if (empty($page)) {
                             $this->getTimeTracker()
-                                ->setTSlogMessage('typolink(): Mount point "' . $mount_info['mount_pid'] . '" was not available, so "' . $linktxt . '" was not linked.',
-                                    1);
+                                ->setTSlogMessage(
+                                    'typolink(): Mount point "' . $mount_info['mount_pid'] . '" was not available, so "' . $linktxt . '" was not linked.',
+                                    1
+                                );
                             return $linktxt;
                         }
                         $MPvarAcc['re-map'] = $mount_info['MPvar'];
@@ -257,8 +273,10 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                     }
                     // Query Params:
                     $addQueryParams = $conf['addQueryString'] ? $this->getQueryArguments($conf['addQueryString.']) : '';
-                    $addQueryParams .= isset($conf['additionalParams.']) ? trim($this->stdWrap($conf['additionalParams'],
-                        $conf['additionalParams.'])) : trim($conf['additionalParams']);
+                    $addQueryParams .= isset($conf['additionalParams.']) ? trim($this->stdWrap(
+                        $conf['additionalParams'],
+                        $conf['additionalParams.']
+                    )) : trim($conf['additionalParams']);
                     if ($addQueryParams === '&' || $addQueryParams[0] !== '&') {
                         $addQueryParams = '';
                     }
@@ -342,15 +360,25 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                         if (!preg_match('/^[a-z0-9.\\-]*$/i', $targetDomain)) {
                             $targetDomain = GeneralUtility::idnaEncode($targetDomain);
                         }
-                        $this->lastTypoLinkUrl = $this->URLqMark($absoluteUrlScheme . '://' . $targetDomain . '/index.php?id=' . $page['uid'],
-                                $addQueryParams) . $sectionMark;
+                        $this->lastTypoLinkUrl = $this->URLqMark(
+                            $absoluteUrlScheme . '://' . $targetDomain . '/index.php?id=' . $page['uid'],
+                            $addQueryParams
+                        ) . $sectionMark;
                     } else {
                         // Internal link or current domain's linking scheme should be used
                         if ($forceTarget) {
                             $target = $forceTarget;
                         }
-                        $LD = $tsfe->tmpl->linkData($page, $target, $conf['no_cache'], '', '', $addQueryParams, $theTypeP,
-                            $targetDomain);
+                        $LD = $tsfe->tmpl->linkData(
+                            $page,
+                            $target,
+                            $conf['no_cache'],
+                            '',
+                            '',
+                            $addQueryParams,
+                            $theTypeP,
+                            $targetDomain
+                        );
                         if ($targetDomain !== '') {
                             // We will add domain only if URL does not have it already.
                             if ($enableLinksAcrossDomains && $targetDomain !== $currentDomain) {
@@ -399,8 +427,11 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                             rawurlencode($this->lastTypoLinkUrl),
                             $page['uid']
                         ), $tsfe->config['config']['typolinkLinkAccessRestrictedPages_addParams']);
-                        $this->lastTypoLinkUrl = $this->getTypoLink_URL($thePage['uid'] . ($theTypeP ? ',' . $theTypeP : ''),
-                            $addParams, $target);
+                        $this->lastTypoLinkUrl = $this->getTypoLink_URL(
+                            $thePage['uid'] . ($theTypeP ? ',' . $theTypeP : ''),
+                            $addParams,
+                            $target
+                        );
                         $this->lastTypoLinkUrl = $this->forceAbsoluteUrl($this->lastTypoLinkUrl, $conf);
                         $this->lastTypoLinkLD['totalUrl'] = $this->lastTypoLinkUrl;
                         $LD = $this->lastTypoLinkLD;
@@ -410,8 +441,10 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                     $finalTagParts['targetParams'] = (string)$LD['target'] !== '' ? ' target="' . htmlspecialchars($LD['target']) . '"' : '';
                 } else {
                     $this->getTimeTracker()
-                        ->setTSlogMessage('typolink(): Page id "' . $linkParameter . '" was not found, so "' . $linktxt . '" was not linked.',
-                            1);
+                        ->setTSlogMessage(
+                            'typolink(): Page id "' . $linkParameter . '" was not found, so "' . $linktxt . '" was not linked.',
+                            1
+                        );
                     return $linktxt;
                 }
                 break;
@@ -449,7 +482,6 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                     $popup_configuration = $popup->convertCfg2Js($popup_configuration);
                     $finalTagParts['aTagParams'] .= ' onclick="window.open(this.href,\'\',\'' . $popup_configuration . '\'); return false;"';
                 }
-
             }
             $finalAnchorTag .= ((string)$title !== '' ? ' title="' . htmlspecialchars($title) . '"' : '') . $finalTagParts['targetParams'] . ($linkClass ? ' class="' . $linkClass . '"' : '') . $finalTagParts['aTagParams'] . '>';
         }
@@ -492,5 +524,4 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
         }
         return $this->wrap($finalAnchorTag . $linktxt . '</a>', $wrap);
     }
-
 }
