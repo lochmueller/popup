@@ -1,0 +1,57 @@
+{
+  "name": "lochmueller/popup",
+  "type": "typo3-cms-extension",
+  "version": "1.0.3",
+  "description": "Add the possibility for a easy configurable popup system for backend users and pages. Merge and modernize the old 'Popup manager' (popup_manager), 'KJ: Extended TYPO3 Links' (kj_extendedlinks), 'TypoLinkPopUp' (cc_typolinkpopup) & 'Pop-Up' (gsi_popup) Extensions and add lots of new features.",
+  "autoload": {
+    "psr-4": {
+      "FRUIT\\Popup\\": "Classes/"
+    }
+  },
+  "keywords": [
+    "TYPO3 CMS",
+    "Popup",
+    "Extbase"
+  ],
+  "authors": [
+    {
+      "name": "Tim Lochmüller",
+      "email": "webmaster@fruit-lab.de",
+      "role": "Developer",
+      "homepage": "https://github.com/lochmueller"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "typo3/cms-core": "~6.2.0||~7.6.0||~8.1.0||dev-master",
+    "typo3/cms": "^7.6.0"
+  },
+  "replace": {
+    "popup": "self.version",
+    "typo3-ter/popup": "self.version"
+  },
+  "homepage": "https://github.com/lochmueller/popup",
+  "license": "GPL-2.0+",
+  "support": {
+    "issues": "https://github.com/lochmueller/popup/issues"
+  },
+  "require-dev": {
+    "namelesscoder/typo3-repository-client": "1.1.x-dev",
+    "phpunit/phpunit": "~4.8.0",
+    "squizlabs/php_codesniffer": "^2.6",
+    "phpmd/phpmd": "^2.4"
+  },
+  "config": {
+    "vendor-dir": ".Build/vendor",
+    "bin-dir": ".Build/bin"
+  },
+  "extra": {
+    "typo3/cms": {
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "web-dir": ".Build/Web",
+      "Package": {
+        "partOfMinimalUsableSystem": true
+      }
+    }
+  }
+}
