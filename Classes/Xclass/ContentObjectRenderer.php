@@ -5,14 +5,12 @@
 
 namespace FRUIT\Popup\Xclass;
 
-use FRUIT\Popup\Controller\PluginController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Frontend\Http\UrlProcessorInterface;
 use TYPO3\CMS\Frontend\Page\CacheHashCalculator;
 use TYPO3\CMS\Frontend\Page\PageRepository;
-use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
 
 /**
  * ContentObjectRenderer
@@ -248,8 +246,8 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                     // -----------------------
                     // Popup Hook
                     // -----------------------
-                    $plugin = new PluginController();
-                    $popup = $plugin->pi_getRecord('pages', $page['uid']);
+                    $pageRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Page\\PageRepository');
+                    $popup = $pageRepository->checkRecord('pages', $page['uid']);
                     $popup_configuration = $popup['tx_popup_configuration'];
 
 

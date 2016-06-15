@@ -2,34 +2,18 @@
 
 namespace FRUIT\Popup\Controller;
 
+use FRUIT\Popup\Popup;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
-/***************************************************************
- *  Copyright notice
+/**
+ * Class PopupController
  *
- *  (c) 2009 Tim Lochmueller <tl@hdnet.de>
- *  2003-2006 Martin Kutschker <Martin.T.Kutschker@blackbox.net>
- *  2003: Traktor Wien (formerly Global Spanking Industries)
- *  2005: ACTIVE SOLUTION Software AG
- *  All rights reserved
- *
- *  This script is part of the Typo3 project. The Typo3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-class PluginController extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
+ * @package FRUIT\Popup\Controller
+ */
+class PopupController extends ActionController
 {
 
     /**
@@ -37,18 +21,20 @@ class PluginController extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
      */
     public $prefixId = 'tx_popup_pi1';
 
-
-    /**
-     * Path to this script relative to the extension dir.
-     */
-    public $scriptRelPath = 'pi1/class.tx_popup_pi1.php';
-
-
     /**
      * The extension key.
      */
     public $extKey = 'popup';
 
+    /**
+     * @var Popup
+     */
+    protected $popup;
+
+    /**
+     * @var array
+     */
+    protected $customParams = [];
 
     /**
      * Init the popup frontend plugin
@@ -62,26 +48,25 @@ class PluginController extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
         $this->customParams = $this->popup->advancedParams;
     } # function - init
 
-
     /**
      * Generate JS code for opening pop-up
      * Main Plugin function for T3
      *
-     * @param $content    String
-     * @param $conf        Array    Plugin configuration
-     * @return The Plugin Output
+     * @return string
      */
-    public function main($content, $conf)
+    public function indexAction()
     {
         // Init
         $this->init();
 
-
-        $link = $this->cObj->data['tx_popup_auto'];
+        $link = $this->configurationManager->getContentObject()->data['tx_popup_auto'];
         if (!$link) {
             GeneralUtility::devLog('No link defined', $this->extKey);
             return '';
         }
+
+        $ts = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+        $conf = $ts['plugin.']['tx_popup_pi1.'];
 
         // get session data
         if ($conf['advancedParams.']['once_per_session']) {
@@ -105,7 +90,8 @@ class PluginController extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
         }
 
         // create the url
-        $url = $this->cObj->getTypoLink_URL($link);
+        $url = $this->configurationManager->getContentObject()
+            ->getTypoLink_URL($link);
         if (!$url) {
             GeneralUtility::devLog('No valid pop-up (e.g. a hidden page):' . $link, $this->extKey);
             return '';
@@ -136,6 +122,7 @@ class PluginController extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
             $params['screenY'] = '\' + ((screen.height - ' . $params['height'] . ') / 2) + \'';
         }
 
+        $tmp_params = [];
         while (list($key, $val) = each($params)) {
             if (isset($val) && $val != '') {
                 $tmp_params[] = $key . '=' . $val;
@@ -160,8 +147,8 @@ class PluginController extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
             $content .= "if ($window) { window.setTimeout('$window.focus()',500); }";
         }
 
-            $content .= "\n// -->\n/*]]>*/</script>\n";
+        $content .= "\n// -->\n/*]]>*/</script>\n";
 
-            return $content;
+        return $content;
     }
 }

@@ -28,10 +28,9 @@ plugin.tx_popup_pi1 {
 ###
 # SETUP - TypoScript Popup link feature
 ###
-includeLibs.popup = EXT:popup/classes/class.tx_popup.php
 config.setJS_openPic = 1
 
 ###
 # SETUP - Auto popup link feature
 ###
-page.headerData.1063 =< plugin.tx_popup_pi1
+page.headerData.1063 =< tt_content.list.20.popup_popup

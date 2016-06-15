@@ -4,11 +4,11 @@ if (!defined('TYPO3_MODE')) {
 }
 
 $extendClasses = [
-    'TYPO3\\CMS\\Frontend\\ContentObject\\Menu\\GraphicalMenuContentObject' => 'FRUIT\\Popup\\Xclass\\GraphicalMenuContentObject',
-    'TYPO3\\CMS\\Frontend\\ContentObject\\Menu\\ImageMenuContentObject' => 'FRUIT\\Popup\\Xclass\\ImageMenuContentObject',
+    'TYPO3\\CMS\\Frontend\\ContentObject\\Menu\\GraphicalMenuContentObject'  => 'FRUIT\\Popup\\Xclass\\GraphicalMenuContentObject',
+    'TYPO3\\CMS\\Frontend\\ContentObject\\Menu\\ImageMenuContentObject'      => 'FRUIT\\Popup\\Xclass\\ImageMenuContentObject',
     'TYPO3\\CMS\\Frontend\\ContentObject\\Menu\\JavaScriptMenuContentObject' => 'FRUIT\\Popup\\Xclass\\JavaScriptMenuContentObject',
-    'TYPO3\\CMS\\Frontend\\ContentObject\\Menu\\TextMenuContentObject' => 'FRUIT\\Popup\\Xclass\\TextMenuContentObject',
-    'TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer' => 'FRUIT\\Popup\\Xclass\\ContentObjectRenderer',
+    'TYPO3\\CMS\\Frontend\\ContentObject\\Menu\\TextMenuContentObject'       => 'FRUIT\\Popup\\Xclass\\TextMenuContentObject',
+    'TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer'             => 'FRUIT\\Popup\\Xclass\\ContentObjectRenderer',
 ];
 foreach ($extendClasses as $source => $target) {
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][$source] = [
@@ -22,10 +22,6 @@ foreach ($extendClasses as $source => $target) {
     tt_content.text.20.parseFunc.tags.linkpop.typolink.parameter.data = parameters : allParams
 ', 43);
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPItoST43(
-    $_EXTKEY,
-    'pi1/class.tx_popup_pi1.php',
-    '_pi1',
-    'list_type',
-    1
-);
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('FRUIT.popup', 'Popup', [
+    'Popup' => 'index',
+]);
