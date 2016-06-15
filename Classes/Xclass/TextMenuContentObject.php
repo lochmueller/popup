@@ -24,11 +24,10 @@ class TextMenuContentObject extends \TYPO3\CMS\Frontend\ContentObject\Menu\TextM
      * @param int|string $typeOverride "type" value, empty string means "not set"
      * @return array See linkData
      */
-    function menuTypoLink($page, $oTarget, $no_cache, $script, $overrideArray = '', $addParams = '', $typeOverride = '')
+    public function menuTypoLink($page, $oTarget, $no_cache, $script, $overrideArray = '', $addParams = '', $typeOverride = '')
     {
         $LD = parent::menuTypoLink($page, $oTarget, $no_cache, $script, $overrideArray, $addParams, $typeOverride);
         Popup::makeMenuLink($page, $LD);
         return $LD;
     }
-
 }

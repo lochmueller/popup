@@ -41,13 +41,13 @@ class PluginController extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
     /**
      * Path to this script relative to the extension dir.
      */
-    var $scriptRelPath = 'pi1/class.tx_popup_pi1.php';
+    public $scriptRelPath = 'pi1/class.tx_popup_pi1.php';
 
 
     /**
      * The extension key.
      */
-    var $extKey = 'popup';
+    public $extKey = 'popup';
 
 
     /**
@@ -55,7 +55,7 @@ class PluginController extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
      *
      * @return void
      */
-    private function init()
+    protected function init()
     {
         $this->popup = GeneralUtility::makeInstance('FRUIT\\Popup\\Popup');
         $this->allowedParams = $this->popup->allowedParams;
@@ -71,7 +71,7 @@ class PluginController extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
      * @param $conf        Array    Plugin configuration
      * @return The Plugin Output
      */
-    function main($content, $conf)
+    public function main($content, $conf)
     {
         // Init
         $this->init();
@@ -160,8 +160,8 @@ class PluginController extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
             $content .= "if ($window) { window.setTimeout('$window.focus()',500); }";
         }
 
-        $content .= "\n// -->\n/*]]>*/</script>\n";
+            $content .= "\n// -->\n/*]]>*/</script>\n";
 
-        return $content;
+            return $content;
     }
 }

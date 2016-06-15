@@ -50,7 +50,7 @@ class Popup
     /**
      * init the convert functions
      */
-    private $convertParams = [];
+    protected $convertParams = [];
 
     /**
      * Possible popup parameter
@@ -105,8 +105,14 @@ class Popup
     public function getPopupTarget($pageOrPageID)
     {
         if (MathUtility::canBeInterpretedAsInteger($pageOrPageID)) {
-            $pageOrPageID = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'pages',
-                'uid=' . $pageOrPageID, '', '', 1));
+            $pageOrPageID = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($GLOBALS['TYPO3_DB']->exec_SELECTquery(
+                '*',
+                'pages',
+                'uid=' . $pageOrPageID,
+                '',
+                '',
+                1
+            ));
         } # if
 
         if (!is_array($pageOrPageID) || isset($pageOrPageID['tx_popup_configuration']) == false) {
@@ -151,7 +157,7 @@ class Popup
      * @author Tim Lochmueller
      * @author before 2009 Mathias Schreiber, Rene Fritz
      */
-    function textParse($content, $conf)
+    public function textParse($content, $conf)
     {
 
         // ################
@@ -177,12 +183,12 @@ class Popup
 
 
         $linkContent = '';
-        if ($conf['link'] OR is_array($conf['link.'])) {
+        if ($conf['link'] or is_array($conf['link.'])) {
             $conf['link'] = $this->cObj->stdWrap($conf['link'], $conf['link.']);
             $conf['ATagParams'] = $this->cObj->stdWrap($conf['ATagParams'], $conf['ATagParams.']);
             $conf['windowname'] = $this->cObj->stdWrap($conf['windowname'], $conf['windowname.']);
 
-            $JSpopup = $this->array_merge_recursive_overrule($JSpopup, $conf, true);
+            $JSpopup = $this->arrayMergeRecursiveOverrule($JSpopup, $conf, true);
 
             $linkContent = $this->cObj->stdWrap($conf['linkContent'], $conf['linkContent.']);
         } else {
@@ -196,8 +202,11 @@ class Popup
                 $JSpopup['properties.']['resizable'] = 'no';
                 $JSpopup['properties.']['scrollbars'] = 'no';
             }
-            $JSpopup['properties.'] = $this->array_merge_recursive_overrule($JSpopup['properties.'],
-                $this->cObj->parameters, true);
+            $JSpopup['properties.'] = $this->arrayMergeRecursiveOverrule(
+                $JSpopup['properties.'],
+                $this->cObj->parameters,
+                true
+            );
         }
 
         $temp = [];
@@ -211,8 +220,11 @@ class Popup
             return '';
         }
 
-        $TAG = '<a href="' . $JSpopup['link'] . '" onClick="openPic(this.href,\'' . str_replace(' ', '',
-                $JSpopup['windowname']) . '\',\'' . $props . '\'); return false;" class="linkpop"' . $JSpopup['ATagParams'] . '>';
+        $TAG = '<a href="' . $JSpopup['link'] . '" onClick="openPic(this.href,\'' . str_replace(
+            ' ',
+            '',
+            $JSpopup['windowname']
+        ) . '\',\'' . $props . '\'); return false;" class="linkpop"' . $JSpopup['ATagParams'] . '>';
         if ($linkContent) {
             $TAG .= $linkContent . '</a>';
         }
@@ -225,7 +237,7 @@ class Popup
      *  Merges two arrays recursively, overruling the values of the first array
      *  in case of identical keys, ie. keeping the values of the second.
      */
-    function array_merge_recursive_overrule($arr0, $arr1, $notAddKeys = 0)
+    public function arrayMergeRecursiveOverrule($arr0, $arr1, $notAddKeys = 0)
     {
         reset($arr1);
         while (list($key, $val) = each($arr1)) {
@@ -245,14 +257,14 @@ class Popup
         }
         reset($arr0);
         return $arr0;
-    } # function - array_merge_recursive_overrule
+    }
 
 
     /**
      * Load TypoScript for the backend
      * This is important for the single configuration concept in the popup extension
      */
-    function loadTypoScript($pid, $pluginExtKey = 'tx_popup_pi1')
+    public function loadTypoScript($pid, $pluginExtKey = 'tx_popup_pi1')
     {
 
         $sysPageObj = GeneralUtility::makeInstance('TYPO3\\CMS\\Frontend\\Page\\PageRepository');
@@ -263,7 +275,7 @@ class Popup
         $TSObj->runThroughTemplates($rootLine);
         $TSObj->generateConfig();
         return $TSObj->setup['plugin.'][$pluginExtKey . '.'];
-    } # function - loadTypoScript
+    }
 
 
     /**
@@ -274,7 +286,7 @@ class Popup
     public function convertInit($params)
     {
         $this->convertParams = $params;
-    } # function - convertInit
+    }
 
 
     /**
@@ -303,7 +315,7 @@ class Popup
 
         $config = $this->convertJs2Array('width=' . $size[0] . ',height=' . $size[1] . ',' . $parts[1], $params);
         return $this->setAllFields($params, $config);
-    } # function - convertCfg2Array
+    }
 
 
     /**
@@ -330,7 +342,7 @@ class Popup
             }
         }
         return $config;
-    } # function - javaScriptParamsToArray
+    }
 
 
     /**
@@ -420,7 +432,7 @@ class Popup
     /**
      * Set all fields in the given configuration by the param parameter
      */
-    private function setAllFields($params, $config)
+    protected function setAllFields($params, $config)
     {
         $param = [];
         foreach (array_keys($params) as $p) {
@@ -437,6 +449,4 @@ class Popup
         } # foreach
         return $config;
     } # function - setAllFields
-
-
 }

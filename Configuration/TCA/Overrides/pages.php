@@ -64,6 +64,8 @@ $tempColumns = [
 ];
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('pages', $tempColumns, 1);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('pages',
-    'tx_popup_configuration;;;;1-1-1,tx_popup_auto;;69');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+    'pages',
+    'tx_popup_configuration;;;;1-1-1,tx_popup_auto;;69'
+);
 $GLOBALS['TCA']['pages']['palettes']['69']['showitem'] = 'tx_popup_auto_configuration';

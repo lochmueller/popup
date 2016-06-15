@@ -28,7 +28,7 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
      * @see stdWrap(), tslib_pibase::pi_linkTP()
      * @link http://typo3.org/doc.0.html?&tx_extrepmgm_pi1[extUid]=270&tx_extrepmgm_pi1[tocEl]=321&cHash=59bd727a5e
      */
-    function typoLink($linktxt, $conf)
+    public function typoLink($linktxt, $conf)
     {
         $LD = [];
         $finalTagParts = [];
@@ -47,14 +47,22 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
 
             // Check for link-handler keyword:
             list($linkHandlerKeyword, $linkHandlerValue) = explode(':', trim($link_paramA[0]), 2);
-            if ($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typolinkLinkHandler'][$linkHandlerKeyword] && strcmp($linkHandlerValue,
-                    '')
+            if ($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typolinkLinkHandler'][$linkHandlerKeyword] && strcmp(
+                $linkHandlerValue,
+                ''
+            )
             ) {
                 $linkHandlerObj = GeneralUtility::getUserObj($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_content.php']['typolinkLinkHandler'][$linkHandlerKeyword]);
 
                 if (method_exists($linkHandlerObj, 'main')) {
-                    return $linkHandlerObj->main($linktxt, $conf, $linkHandlerKeyword, $linkHandlerValue, $link_param,
-                        $this);
+                    return $linkHandlerObj->main(
+                        $linktxt,
+                        $conf,
+                        $linkHandlerKeyword,
+                        $linkHandlerValue,
+                        $link_param,
+                        $this
+                    );
                 }
             }
 
@@ -74,8 +82,11 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
             $onClick = '';
             if ($forceTarget && preg_match('/^([0-9]+)x([0-9]+)(:(.*)|.*)$/', $forceTarget, $JSwindowParts)) {
                 // Take all pre-configured and inserted parameters and compile parameter list, including width+height:
-                $JSwindow_tempParamsArr = GeneralUtility::trimExplode(',',
-                    strtolower($conf['JSwindow_params'] . ',' . $JSwindowParts[4]), 1);
+                $JSwindow_tempParamsArr = GeneralUtility::trimExplode(
+                    ',',
+                    strtolower($conf['JSwindow_params'] . ',' . $JSwindowParts[4]),
+                    1
+                );
                 $JSwindow_paramsArr = [];
                 foreach ($JSwindow_tempParamsArr as $JSv) {
                     list($JSp, $JSv) = explode('=', $JSv);
@@ -105,8 +116,10 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
             $pU = parse_url($link_param);
 
             // Detecting kind of link:
-            if (strstr($link_param,
-                    '@') && (!$pU['scheme'] || $pU['scheme'] == 'mailto')
+            if (strstr(
+                $link_param,
+                '@'
+            ) && (!$pU['scheme'] || $pU['scheme'] == 'mailto')
             ) {        // If it's a mail address:
                 $link_param = preg_replace('/^mailto:/i', '', $link_param);
                 list($this->lastTypoLinkUrl, $linktxt) = $this->getMailTo($link_param, $linktxt, $initP);
@@ -123,8 +136,10 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                     list($rootFileDat) = explode('?', rawurldecode($link_param));
                     $containsSlash = strstr($rootFileDat, '/');
                     $rFD_fI = pathinfo($rootFileDat);
-                    if (trim($rootFileDat) && !$containsSlash && (@is_file(PATH_site . $rootFileDat) || GeneralUtility::inList('php,html,htm',
-                                strtolower($rFD_fI['extension'])))
+                    if (trim($rootFileDat) && !$containsSlash && (@is_file(PATH_site . $rootFileDat) || GeneralUtility::inList(
+                        'php,html,htm',
+                        strtolower($rFD_fI['extension'])
+                    ))
                     ) {
                         $isLocalFile = 1;
                     } elseif ($containsSlash) {
@@ -157,8 +172,10 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                     $finalTagParts['url'] = $this->lastTypoLinkUrl;
                     $finalTagParts['targetParams'] = $target ? ' target="' . $target . '"' : '';
                     $finalTagParts['TYPE'] = 'url';
-                    $finalTagParts['aTagParams'] .= $this->extLinkATagParams($finalTagParts['url'],
-                        $finalTagParts['TYPE']);
+                    $finalTagParts['aTagParams'] .= $this->extLinkATagParams(
+                        $finalTagParts['url'],
+                        $finalTagParts['TYPE']
+                    );
                 } elseif ($containsSlash || $isLocalFile) {    // file (internal)
                     $splitLinkParam = explode('?', $link_param);
                     if (file_exists(rawurldecode($splitLinkParam[0])) || $isLocalFile) {
@@ -182,11 +199,15 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                         $finalTagParts['url'] = $this->lastTypoLinkUrl;
                         $finalTagParts['targetParams'] = $target ? ' target="' . $target . '"' : '';
                         $finalTagParts['TYPE'] = 'file';
-                        $finalTagParts['aTagParams'] .= $this->extLinkATagParams($finalTagParts['url'],
-                            $finalTagParts['TYPE']);
+                        $finalTagParts['aTagParams'] .= $this->extLinkATagParams(
+                            $finalTagParts['url'],
+                            $finalTagParts['TYPE']
+                        );
                     } else {
-                        $GLOBALS['TT']->setTSlogMessage("typolink(): File '" . $splitLinkParam[0] . "' did not exist, so '" . $linktxt . "' was not linked.",
-                            1);
+                        $GLOBALS['TT']->setTSlogMessage(
+                            "typolink(): File '" . $splitLinkParam[0] . "' did not exist, so '" . $linktxt . "' was not linked.",
+                            1
+                        );
                         return $linktxt;
                     }
                 } else {    // integer or alias (alias is without slashes or periods or commas, that is 'nospace,alphanum_x,lower,unique' according to definition in $TCA!)
@@ -237,11 +258,15 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                         // Look for overlay Mount Point:
                         $mount_info = $GLOBALS['TSFE']->sys_page->getMountPointInfo($page['uid'], $page);
                         if (is_array($mount_info) && $mount_info['overlay']) {
-                            $page = $GLOBALS['TSFE']->sys_page->getPage($mount_info['mount_pid'],
-                                $disableGroupAccessCheck);
+                            $page = $GLOBALS['TSFE']->sys_page->getPage(
+                                $mount_info['mount_pid'],
+                                $disableGroupAccessCheck
+                            );
                             if (!count($page)) {
-                                $GLOBALS['TT']->setTSlogMessage("typolink(): Mount point '" . $mount_info['mount_pid'] . "' was not available, so '" . $linktxt . "' was not linked.",
-                                    1);
+                                $GLOBALS['TT']->setTSlogMessage(
+                                    "typolink(): Mount point '" . $mount_info['mount_pid'] . "' was not available, so '" . $linktxt . "' was not linked.",
+                                    1
+                                );
                                 return $linktxt;
                             }
                             $MPvarAcc['re-map'] = $mount_info['MPvar'];
@@ -275,10 +300,11 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                         if (count($MPvarAcc)) {
                             // Add "&MP" var:
                             $addQueryParams .= '&MP=' . rawurlencode(implode(',', $MPvarAcc));
-                        } elseif (strpos($addQueryParams,
-                                '&MP=') === false && $GLOBALS['TSFE']->config['config']['typolinkCheckRootline']
+                        } elseif (strpos(
+                            $addQueryParams,
+                            '&MP='
+                        ) === false && $GLOBALS['TSFE']->config['config']['typolinkCheckRootline']
                         ) {
-
                             // We do not come here if additionalParams had '&MP='. This happens when typoLink is called from
                             // menu. Mount points always work in the content of the current domain and we must not change
                             // domain if MP variables exist.
@@ -290,8 +316,10 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                                 $page2 = $page;    // Save in case of broken destination or endless loop
                                 $maxLoopCount = 20;    // Same as in RealURL, seems enough
                                 while ($maxLoopCount && is_array($page) && $page['doktype'] == 4 && $page['shortcut_mode'] == 0) {
-                                    $page = $GLOBALS['TSFE']->sys_page->getPage($page['shortcut'],
-                                        $disableGroupAccessCheck);
+                                    $page = $GLOBALS['TSFE']->sys_page->getPage(
+                                        $page['shortcut'],
+                                        $disableGroupAccessCheck
+                                    );
                                     $maxLoopCount--;
                                 }
                                 if (count($page) == 0 || $maxLoopCount == 0) {
@@ -315,9 +343,13 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                             }
                             if (!$tCR_flag) {
                                 foreach ($tCR_rootline as $tCR_data) {
-                                    $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('domainName', 'sys_domain',
+                                    $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+                                        'domainName',
+                                        'sys_domain',
                                         'pid=' . intval($tCR_data['uid']) . ' AND redirectTo=\'\'' . $this->enableFields('sys_domain'),
-                                        '', 'sorting');
+                                        '',
+                                        'sorting'
+                                    );
                                     $row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
                                     $GLOBALS['TYPO3_DB']->sql_free_result($res);
                                     if ($row) {
@@ -337,14 +369,24 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                                 $target = $forceTarget;
                             }
                             $LD['target'] = $target;
-                            $this->lastTypoLinkUrl = $this->URLqMark('http://' . $tCR_domain . '/index.php?id=' . $page['uid'],
-                                    $addQueryParams) . $sectionMark;
+                            $this->lastTypoLinkUrl = $this->URLqMark(
+                                'http://' . $tCR_domain . '/index.php?id=' . $page['uid'],
+                                $addQueryParams
+                            ) . $sectionMark;
                         } else {    // Internal link:
                             if ($forceTarget) {
                                 $target = $forceTarget;
                             }
-                            $LD = $GLOBALS['TSFE']->tmpl->linkData($page, $target, $conf['no_cache'], '', '',
-                                $addQueryParams, $theTypeP, $tCR_domain);
+                            $LD = $GLOBALS['TSFE']->tmpl->linkData(
+                                $page,
+                                $target,
+                                $conf['no_cache'],
+                                '',
+                                '',
+                                $addQueryParams,
+                                $theTypeP,
+                                $tCR_domain
+                            );
                             if (strlen($tCR_domain)) {
                                 // We will add domain only if URL does not have it already.
 
@@ -354,8 +396,11 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                                     // domains. absRefPrefix can contain domain name, which will screw up
                                     // the link to the external domain.
                                     $prefixLength = strlen($GLOBALS['TSFE']->config['config']['absRefPrefix']);
-                                    if (substr($LD['totalURL'], 0,
-                                            $prefixLength) == $GLOBALS['TSFE']->config['config']['absRefPrefix']
+                                    if (substr(
+                                        $LD['totalURL'],
+                                        0,
+                                        $prefixLength
+                                    ) == $GLOBALS['TSFE']->config['config']['absRefPrefix']
                                     ) {
                                         $LD['totalURL'] = substr($LD['totalURL'], $prefixLength);
                                     }
@@ -393,8 +438,11 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                             $thePage = $GLOBALS['TSFE']->sys_page->getPage($GLOBALS['TSFE']->config['config']['typolinkLinkAccessRestrictedPages']);
 
                             $addParams = $GLOBALS['TSFE']->config['config']['typolinkLinkAccessRestrictedPages_addParams'];
-                            $addParams = str_replace('###RETURN_URL###', rawurlencode($this->lastTypoLinkUrl),
-                                $addParams);
+                            $addParams = str_replace(
+                                '###RETURN_URL###',
+                                rawurlencode($this->lastTypoLinkUrl),
+                                $addParams
+                            );
                             $addParams = str_replace('###PAGE_ID###', $page['uid'], $addParams);
                             $this->lastTypoLinkUrl = $this->getTypoLink_URL(
                                 $thePage['uid'] . ($theTypeP ? ',' . $theTypeP : ''),
@@ -409,8 +457,10 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                         $finalTagParts['targetParams'] = $targetPart;
                         $finalTagParts['TYPE'] = 'page';
                     } else {
-                        $GLOBALS['TT']->setTSlogMessage("typolink(): Page id '" . $link_param . "' was not found, so '" . $linktxt . "' was not linked.",
-                            1);
+                        $GLOBALS['TT']->setTSlogMessage(
+                            "typolink(): Page id '" . $link_param . "' was not found, so '" . $linktxt . "' was not linked.",
+                            1
+                        );
                         return $linktxt;
                     }
                 }
@@ -423,7 +473,6 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
             }
 
             if ($JSwindowParams) {
-
                 // Create TARGET-attribute only if the right doctype is used
                 if (!GeneralUtility::inList('xhtml_strict,xhtml_11,xhtml_2', $GLOBALS['TSFE']->xhtmlDoctype)) {
                     $target = ' target="FEopenLink"';
@@ -437,8 +486,6 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                 if ($GLOBALS['TSFE']->spamProtectEmailAddresses === 'ascii' && $finalTagParts['TYPE'] === 'mailto') {
                     $res = '<a href="' . $finalTagParts['url'] . '"' . ($title ? ' title="' . $title . '"' : '') . $finalTagParts['targetParams'] . ($linkClass ? ' class="' . $linkClass . '"' : '') . $finalTagParts['aTagParams'] . '>';
                 } else {
-
-
                     // -----------------------
                     // Popup Hook
                     // -----------------------
@@ -449,8 +496,6 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
                     } else {
                         $res = '<a href="' . htmlspecialchars($finalTagParts['url']) . '"' . ($title ? ' title="' . $title . '"' : '') . $finalTagParts['targetParams'] . ($linkClass ? ' class="' . $linkClass . '"' : '') . $finalTagParts['aTagParams'] . '>';
                     }
-
-
                 }
             }
 
@@ -494,5 +539,4 @@ class ContentObjectRenderer extends \TYPO3\CMS\Frontend\ContentObject\ContentObj
             return $linktxt;
         }
     }
-
 }

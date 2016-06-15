@@ -17,10 +17,15 @@ foreach ($extendClasses as $source => $target) {
 }
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScript($_EXTKEY, 'setup', '
-	tt_content.text.20.parseFunc.tags.linkpop < tt_content.text.20.parseFunc.tags.link
-	tt_content.text.20.parseFunc.tags.linkpop.typolink.userFunc = tx_popup->textParse
-	tt_content.text.20.parseFunc.tags.linkpop.typolink.parameter.data = parameters : allParams
+    tt_content.text.20.parseFunc.tags.linkpop < tt_content.text.20.parseFunc.tags.link
+    tt_content.text.20.parseFunc.tags.linkpop.typolink.userFunc = tx_popup->textParse
+    tt_content.text.20.parseFunc.tags.linkpop.typolink.parameter.data = parameters : allParams
 ', 43);
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPItoST43($_EXTKEY, 'pi1/class.tx_popup_pi1.php', '_pi1',
-    'list_type', 1);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPItoST43(
+    $_EXTKEY,
+    'pi1/class.tx_popup_pi1.php',
+    '_pi1',
+    'list_type',
+    1
+);
