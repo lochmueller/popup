@@ -1,7 +1,7 @@
 {
   "name": "lochmueller/popup",
   "type": "typo3-cms-extension",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Add the possibility for a easy configurable popup system for backend users and pages. Merge and modernize the old 'Popup manager' (popup_manager), 'KJ: Extended TYPO3 Links' (kj_extendedlinks), 'TypoLinkPopUp' (cc_typolinkpopup) & 'Pop-Up' (gsi_popup) Extensions and add lots of new features.",
   "autoload": {
     "psr-4": {
