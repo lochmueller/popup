@@ -8,6 +8,12 @@
       "FRUIT\\Popup\\": "Classes/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "FRUIT\\Ink\\Popup\\": "Tests",
+      "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/"
+    }
+  },
   "keywords": [
     "TYPO3 CMS",
     "Popup",
